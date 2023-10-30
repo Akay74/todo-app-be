@@ -5,17 +5,19 @@ module.exports.getToDos = async (req, res) => {
   res.send(toDos);
 };
 
-module.exports.saveToDo = (req, res) => {
+module.exports.saveToDo = async (req, res) => {
   const { toDo } = req.body;
+  const newToDo = new ToDoModel({ toDo });
+  console.log(req.body);
 
-  ToDoModel.create({ toDo })
+  ToDoModel.create({ newToDo })
     .then((data) => {
       console.log("Saved Successfully...");
       res.status(201).send(data);
     })
     .catch((err) => {
       console.log(err);
-      res.send({ error: err, msg: "Something went wrong!" });
+      res.send({ error: err, msg: err.msg });
     });
 };
 
@@ -34,9 +36,9 @@ module.exports.updateToDo = (req, res) => {
 };
 
 module.exports.deleteToDo = (req, res) => {
-  const { id } = req.params;
+  const { _id } = req.params;
 
-  ToDoModel.findByIdAndDelete(id)
+  ToDoModel.findByIdAndDelete(_id)
     .then(() => {
       res.send("Deleted Successfully....");
     })

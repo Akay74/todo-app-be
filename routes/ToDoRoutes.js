@@ -10,7 +10,7 @@ const router = Router();
 
 router.get("/get", getToDos);
 router.post("/save", saveToDo);
-router.post("/save", updateToDo);
-router.post("/save", deleteToDo);
+router.post("/update", updateToDo);
+router.post("/delete", deleteToDo);
 
 module.exports = router;
